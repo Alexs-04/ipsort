@@ -2,7 +2,7 @@ package com.korebit.util;
 
 import lombok.NonNull;
 
-public class NetworkUtils {
+public final class NetworkUtils {
     public static String createNetDirection(int oct1, int oct2, int oct3, int oct4) {
         return oct1 + "." + oct2 + "." + oct3 + "." + oct4;
     }

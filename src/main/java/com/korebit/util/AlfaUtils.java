@@ -1,4 +1,4 @@
 package com.korebit.util;
 
-public class AlfaUtils {
+public final class AlfaUtils {
 }
