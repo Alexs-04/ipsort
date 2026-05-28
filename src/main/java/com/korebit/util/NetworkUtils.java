@@ -3,6 +3,11 @@ package com.korebit.util;
 import lombok.NonNull;
 
 public final class NetworkUtils {
+
+    private NetworkUtils() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     public static String createNetDirection(int oct1, int oct2, int oct3, int oct4) {
         return oct1 + "." + oct2 + "." + oct3 + "." + oct4;
     }
@@ -79,12 +84,17 @@ public final class NetworkUtils {
         return broadcastBytes[0] + "." + broadcastBytes[1] + "." + broadcastBytes[2] + "." + broadcastBytes[3];
     }
 
-    public static String createStatus(int oct) {
-        if (oct == 10 || oct == 172 || oct == 192) {
-            return "Privada";
-        } else {
-            return "Publica";
-        }
+    public static String createStatus(String ip) throws NumberFormatException {
+        String[] split = ip.split("\\.");
+        int oct1 = Integer.parseInt(split[0]);
+        int oct2 = Integer.parseInt(split[1]);
+
+        return switch (oct1) {
+            case 10 -> "Private";
+            case 172 -> (oct2 >= 16 && oct2 <= 31) ? "Private" : "Public";
+            case 192 -> (oct2 == 168) ? "Private" : "Public";
+            default -> "Public";
+        };
     }
 
     public static String determinateRange(String netDirection, String broadcast) {

@@ -35,7 +35,7 @@ public final class Data {
                 mask = NetworkUtils.createMask(prefix);
                 brodcast = NetworkUtils.createBroadcast(networkDirection, mask);
                 classType = NetworkUtils.determinateClass(mask, oct1);
-                status = NetworkUtils.createStatus(oct1);
+                status = NetworkUtils.createStatus(networkDirection);
                 range = NetworkUtils.determinateRange(networkDirection, brodcast);
 
                 if (NATS.add(nat)) {
@@ -49,5 +49,13 @@ public final class Data {
 
     public static ArrayList<Network> getNetworks() {
         return NETWORKS;
+    }
+
+    public static boolean addNetwork(Network network) {
+        if (NATS.add(network.getNat())) {
+            NETWORKS.add(network);
+            return true;
+        }
+        return false;
     }
 }
