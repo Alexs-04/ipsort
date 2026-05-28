@@ -2,6 +2,7 @@ package com.korebit.util;
 
 public final class OSUtils {
     private OSUtils() {
+        throw new UnsupportedOperationException("Utility class");
     }
 
     public static boolean isWindows() {

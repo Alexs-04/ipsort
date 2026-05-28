@@ -2,10 +2,11 @@ package com.korebit.model;
 
 //import lombok.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 //@AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 //@ToString
 public class Network {
     private String name;
@@ -28,8 +29,5 @@ public class Network {
         this.range = range;
         this.prefix = prefix;
         this.nat = nat;
-    }
-
-    public Network() {
     }
 }
