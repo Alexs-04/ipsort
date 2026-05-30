@@ -7,4 +7,15 @@ public class SortUtils {
     private SortUtils() {
         throw new UnsupportedOperationException("Utility class");
     }
+
+    public static long calculateTime() {
+        long startTime = System.currentTimeMillis();
+        selectRandomSort();
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
+    }
+
+    private static void selectRandomSort() {
+
+    }
 }

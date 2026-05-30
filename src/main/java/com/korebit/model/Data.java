@@ -1,5 +1,7 @@
 package com.korebit.model;
 
+import com.korebit.model.enums.NetworkClass;
+import com.korebit.model.enums.NetworkType;
 import com.korebit.util.NetworkUtils;
 
 import java.io.File;
@@ -17,7 +19,9 @@ public final class Data {
     private static void uploadData() {
         File data = new File(Objects.requireNonNull(Data.class.getClassLoader().getResource("data/data.txt")).getPath());
 
-        String name, classType, mask, networkDirection, brodcast, status, range;
+        String name, mask, networkDirection, brodcast, status, range;
+        NetworkClass networkClassType;
+        NetworkType statusType;
         int prefix, nat, finalOct, oct1, oct2, oct3;
 
         try (Scanner read = new Scanner(data)) {
@@ -34,12 +38,12 @@ public final class Data {
                 networkDirection = NetworkUtils.createNetDirection(oct1, oct2, oct3, finalOct);
                 mask = NetworkUtils.createMask(prefix);
                 brodcast = NetworkUtils.createBroadcast(networkDirection, mask);
-                classType = NetworkUtils.determinateClass(mask, oct1);
-                status = NetworkUtils.createStatus(networkDirection);
+                networkClassType = NetworkUtils.determinateClass(mask, oct1);
+                statusType = NetworkUtils.createStatus(networkDirection);
                 range = NetworkUtils.determinateRange(networkDirection, brodcast);
 
                 if (NATS.add(nat)) {
-                    NETWORKS.add(new Network(name, classType, mask, networkDirection, brodcast, status, range, prefix, nat));
+                    NETWORKS.add(new Network(name, networkClassType, mask, networkDirection, brodcast, statusType, range, prefix, nat));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -58,4 +62,19 @@ public final class Data {
         }
         return false;
     }
+
+    public static int[] countStatus() {
+        int[] array = {0, 0};
+
+        array[0] = NETWORKS.stream().filter(n -> n.getStatus() == NetworkType.PRIVATE).toArray().length;
+        array[1] = NETWORKS.stream().filter(n -> n.getStatus() == NetworkType.PUBLIC).toArray().length;
+
+        return array;
+    }
+
+    public static int countClass(NetworkClass classType) {
+        return NETWORKS.stream().filter(n -> n.getNetworkClassType().equals(classType)).toArray().length;
+    }
+
+    
 }

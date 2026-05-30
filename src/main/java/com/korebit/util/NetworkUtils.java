@@ -1,6 +1,8 @@
 package com.korebit.util;
 
+import com.korebit.model.enums.NetworkType;
 import lombok.NonNull;
+import com.korebit.model.enums.NetworkClass;
 
 public final class NetworkUtils {
 
@@ -49,19 +51,19 @@ public final class NetworkUtils {
         return mask[3];
     }
 
-    public static String determinateClass(@NonNull String mask, int oct1) {
+    public static NetworkClass determinateClass(@NonNull String mask, int oct1) {
         if (mask.equals("255.0.0.0") && oct1 >= 1 && oct1 <= 126) {
-            return "A";
+            return NetworkClass.A;
         } else if (mask.equals("255.255.0.0") && oct1 >= 128 && oct1 <= 191) {
-            return "B";
+            return NetworkClass.B;
         } else if (mask.equals("255.255.255.0") && oct1 >= 192 && oct1 <= 223) {
-            return "C";
+            return NetworkClass.C;
         } else if (oct1 >= 224 && oct1 <= 239) {
-            return "D";
+            return NetworkClass.D;
         } else if (oct1 >= 240 && oct1 <= 255) {
-            return "E";
+            return NetworkClass.E;
         } else {
-            return "MA";
+            return NetworkClass.AM;
         }
     }
 
@@ -84,16 +86,16 @@ public final class NetworkUtils {
         return broadcastBytes[0] + "." + broadcastBytes[1] + "." + broadcastBytes[2] + "." + broadcastBytes[3];
     }
 
-    public static String createStatus(String ip) throws NumberFormatException {
+    public static NetworkType createStatus(String ip) throws NumberFormatException {
         String[] split = ip.split("\\.");
         int oct1 = Integer.parseInt(split[0]);
         int oct2 = Integer.parseInt(split[1]);
 
         return switch (oct1) {
-            case 10 -> "Private";
-            case 172 -> (oct2 >= 16 && oct2 <= 31) ? "Private" : "Public";
-            case 192 -> (oct2 == 168) ? "Private" : "Public";
-            default -> "Public";
+            case 10 -> NetworkType.PRIVATE;
+            case 172 -> (oct2 >= 16 && oct2 <= 31) ? NetworkType.PRIVATE : NetworkType.PUBLIC;
+            case 192 -> (oct2 == 168) ? NetworkType.PRIVATE : NetworkType.PUBLIC;
+            default -> NetworkType.PUBLIC;
         };
     }
 

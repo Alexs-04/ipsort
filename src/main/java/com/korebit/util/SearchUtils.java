@@ -22,7 +22,7 @@ public final class SearchUtils {
 
         if (random == 1) {
             currentSearch = "Binaria";
-            return binariaSearch(nat);
+            return binarySearch(nat);
         } else {
             currentSearch = "Lineal";
             return linealSearch(nat);
@@ -38,7 +38,7 @@ public final class SearchUtils {
         throw new NetworkNotFunException("Network with NAT " + nat + " not found");
     }
 
-    private static Network binariaSearch(int nat) {
+    private static Network binarySearch(int nat) {
         int left = 0;
         int right = Data.getNetworks().size() - 1;
 
@@ -55,5 +55,14 @@ public final class SearchUtils {
             }
         }
         throw new NetworkNotFunException("Network with NAT " + nat + " not found");
+    }
+
+    public static Network linealSearchByName(String name) {
+        for (var network : Data.getNetworks()) {
+            if (network.getName().equalsIgnoreCase(name)) {
+                return network;
+            }
+        }
+        throw new NetworkNotFunException("Network with name " + name + " not found");
     }
 }
