@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public final class Data {
-    private static final ArrayList<Network> NETWORKS = new ArrayList<>();
-    private static final Set<Integer> NATS = new HashSet<>();
+    private static ArrayList<Network> NETWORKS = new ArrayList<>();
+    private static final Set<Integer> IDENTIFIERS = new HashSet<>();
 
     static {
         uploadData();
@@ -19,15 +19,15 @@ public final class Data {
     private static void uploadData() {
         File data = new File(Objects.requireNonNull(Data.class.getClassLoader().getResource("data/data.txt")).getPath());
 
-        String name, mask, networkDirection, brodcast, status, range;
+        String name, mask, networkDirection, brodcast, range;
         NetworkClass networkClassType;
         NetworkType statusType;
-        int prefix, nat, finalOct, oct1, oct2, oct3;
+        int prefix, identifier, finalOct, oct1, oct2, oct3;
 
         try (Scanner read = new Scanner(data)) {
 
             while (read.hasNextLine()) {
-                nat = read.nextInt();
+                identifier = read.nextInt();
                 oct1 = read.nextInt();
                 oct2 = read.nextInt();
                 oct3 = read.nextInt();
@@ -42,8 +42,8 @@ public final class Data {
                 statusType = NetworkUtils.createStatus(networkDirection);
                 range = NetworkUtils.determinateRange(networkDirection, brodcast);
 
-                if (NATS.add(nat)) {
-                    NETWORKS.add(new Network(name, networkClassType, mask, networkDirection, brodcast, statusType, range, prefix, nat));
+                if (IDENTIFIERS.add(identifier)) {
+                    NETWORKS.add(new Network(name, networkClassType, mask, networkDirection, brodcast, statusType, range, prefix, identifier));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -56,7 +56,7 @@ public final class Data {
     }
 
     public static boolean addNetwork(Network network) {
-        if (NATS.add(network.getNat())) {
+        if (IDENTIFIERS.add(network.getIdentifier())) {
             NETWORKS.add(network);
             return true;
         }
@@ -75,6 +75,4 @@ public final class Data {
     public static int countClass(NetworkClass classType) {
         return NETWORKS.stream().filter(n -> n.getNetworkClassType().equals(classType)).toArray().length;
     }
-
-    
 }

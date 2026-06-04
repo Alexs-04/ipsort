@@ -20,5 +20,5 @@ public class Network {
     private NetworkType status;
     private String range;
     private int prefix;
-    private int nat;
+    private int identifier;
 }

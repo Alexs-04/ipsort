@@ -1,0 +1,16 @@
+package com.korebit.util;
+
+import com.korebit.sort.*;
+
+public class SortFactory {
+
+    public static Sort getSort(String sortType) {
+        return switch (sortType.toLowerCase()) {
+            case "bubble" -> new BubbleSort();
+            case "insertion" -> new InsertionSort();
+            case "cocktail" -> new CocktailSort();
+            case "counting" -> new CountingSort();
+            default -> throw new IllegalArgumentException("Invalid sort type: " + sortType);
+        };
+    }
+}
