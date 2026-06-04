@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.korebit'
-version = '1.0-SNAPSHOT'
+version = '0.0.22'
 
 repositories {
     mavenCentral()
