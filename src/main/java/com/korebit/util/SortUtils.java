@@ -4,6 +4,7 @@ import com.korebit.dto.SortResult;
 import com.korebit.model.Data;
 import com.korebit.model.Network;
 import com.korebit.sort.Sort;
+import com.korebit.sort.SortFactory;
 
 import java.util.Comparator;
 
@@ -32,17 +33,20 @@ public final class SortUtils {
         };
     }
 
-    public static long orchestratorSortByIdentifier() {
+    public static SortResult orchestratorSortByIdentifier() {
         Sort sort = getRandomSort();
         Comparator<Network> comparator = Comparator.comparingInt(Network::getIdentifier);
         comprobateSortByIdentifier = true;
 
-        return calculateTime(
+        long timeTaken = calculateTime(
                 () -> sort.sort(Data.getNetworks(), comparator)
         );
+
+        return new SortResult(sort.getClass().getName(), timeTaken);
     }
 
     public static SortResult orchestratorSort(Comparator<Network> comparator) {
+        comprobateSortByIdentifier = false;
         Sort sort = getRandomSort();
         long timeTaken = calculateTime(
                 () -> sort.sort(Data.getNetworks(), comparator)
