@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public final class Data {
-    private static ArrayList<Network> NETWORKS = new ArrayList<>();
+    private static final ArrayList<Network> NETWORKS = new ArrayList<>();
     private static final Set<Integer> IDENTIFIERS = new HashSet<>();
 
     static {
@@ -74,5 +74,11 @@ public final class Data {
 
     public static int countClass(NetworkClass classType) {
         return NETWORKS.stream().filter(n -> n.getNetworkClassType().equals(classType)).toArray().length;
+    }
+
+    public static void printTheFirstHundredNetworks() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println(NETWORKS.get(i));
+        }
     }
 }

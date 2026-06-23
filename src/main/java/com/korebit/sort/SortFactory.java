@@ -1,6 +1,4 @@
-package com.korebit.util;
-
-import com.korebit.sort.*;
+package com.korebit.sort;
 
 public class SortFactory {
 
