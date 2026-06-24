@@ -19,18 +19,7 @@ public class BubbleSort implements Sort{
 
             for (int i = 0; i < n - 1; i++) {
 
-                if (comparator.compare(
-                        networks.get(i),
-                        networks.get(i + 1)
-                ) > 0) {
-
-                    Network aux = networks.get(i);
-
-                    networks.set(i, networks.get(i + 1));
-                    networks.set(i + 1, aux);
-
-                    swapped = true;
-                }
+                swapped = CocktailSort.isSwapped(networks, comparator, swapped, i);
             }
 
             n--;
