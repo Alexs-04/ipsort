@@ -5,7 +5,7 @@ import com.korebit.model.Network;
 import java.util.Comparator;
 import java.util.List;
 
-public class CocktailSort implements Sort {
+public class CocktailSort implements ComparativeSort {
     @Override
     public void sort(List<Network> networks, Comparator<Network> comparator) {
 

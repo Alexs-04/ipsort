@@ -2,12 +2,13 @@ package com.korebit.sort;
 
 import com.korebit.model.Network;
 
-import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
-public class CountingSort implements Sort {
+public class CountingSort implements NoComparativeSort {
+
     @Override
-    public void sort(List<Network> networks, Comparator<Network> comparator) {
-        
+    public void sort(List<Network> networks, ToIntFunction<Network> keyExtractor) {
+
     }
 }
