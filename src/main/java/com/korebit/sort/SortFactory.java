@@ -11,6 +11,8 @@ public class SortFactory {
             case "radix" -> new RadixSort();
             case "selection" -> new SelectionSort();
             case "shell" -> new ShellSort();
+            case "merge" -> new MergeSort();
+            case "quick" -> new QuickSort();
             default -> throw new IllegalArgumentException("Invalid sort type: " + sortType);
         };
     }

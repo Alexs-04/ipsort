@@ -3,12 +3,14 @@ package com.korebit.model;
 import com.korebit.model.enums.NetworkClass;
 import com.korebit.model.enums.NetworkType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Network {
     private String name;
     private NetworkClass networkClassType;

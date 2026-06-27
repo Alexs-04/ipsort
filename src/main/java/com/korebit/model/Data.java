@@ -43,7 +43,16 @@ public final class Data {
                 range = NetworkUtils.determinateRange(networkDirection, brodcast);
 
                 if (IDENTIFIERS.add(identifier)) {
-                    NETWORKS.add(new Network(name, networkClassType, mask, networkDirection, brodcast, statusType, range, prefix, identifier));
+                    NETWORKS.add(Network.builder()
+                            .identifier(identifier)
+                            .netDirection(networkDirection)
+                            .mask(mask)
+                            .broadcast(brodcast)
+                            .range(range)
+                            .name(name.trim())
+                            .networkClassType(networkClassType)
+                            .status(statusType)
+                            .build());
                 }
             }
         } catch (FileNotFoundException e) {
