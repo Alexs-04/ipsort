@@ -8,6 +8,6 @@ import java.util.function.ToIntFunction;
 public non-sealed interface NoComparativeSort extends Sort {
     void sort(
             List<Network> networks,
-            ToIntFunction<Network> keyExtractor
+            ToIntFunction<Network> keyExtractor //TODO: Not compatible with parameters other than integers.
     );
 }

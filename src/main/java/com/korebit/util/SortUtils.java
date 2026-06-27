@@ -5,10 +5,10 @@ import com.korebit.model.Data;
 import com.korebit.model.Network;
 import com.korebit.sort.ComparativeSort;
 import com.korebit.sort.NoComparativeSort;
-import com.korebit.sort.Sort;
 import com.korebit.sort.SortFactory;
 
 import java.util.Comparator;
+import java.util.function.ToIntFunction;
 
 public final class SortUtils {
 
@@ -44,27 +44,29 @@ public final class SortUtils {
         };
     }
 
-//    public static SortResult orchestratorSortByIdentifier() {
-//        boolean flag = (int) (Math.random() * 2) == 0;
-//        var sort = flag ? getNoComparativeSort() : getComparativeSort();
-//
-//        var condition = flag ? Comparator.comparingInt(Network::getIdentifier) : Comparator.comparing(Network::getIdentifier);
-//
-//        comprobateSortByIdentifier = true;
-//
-//        long timeTaken = calculateTime(
-//                () -> sort.sort(Data.getNetworks(), condition)
-//        );
-//
-//        return new SortResult(sort.getClass().getName(), timeTaken);
-//    }
-//
-//    public static SortResult orchestratorSort(Comparator<Network> comparator) {
-//        comprobateSortByIdentifier = false;
-//        Sort sort = getRandomSort();
-//        long timeTaken = calculateTime(
-//                () -> sort.sort(Data.getNetworks(), comparator)
-//        );
-//        return new SortResult(sort.getClass().getName(), timeTaken);
-//    }
+    public static SortResult orchestratorSortByIdentifier() {
+        boolean flag = (int) (Math.random() * 2) == 0;
+        return flag
+                ? orchestratorComparativeSort(Comparator.comparingInt(Network::getIdentifier))
+                : orchestratorNoComparativeSort(Network::getIdentifier);
+    }
+
+    public static SortResult orchestratorComparativeSort(Comparator<Network> comparator) {
+        comprobateSortByIdentifier = false;
+        ComparativeSort sort = getComparativeSort();
+        long timeTaken = calculateTime(
+                () -> sort.sort(Data.getNetworks(), comparator)
+        );
+        return new SortResult(sort.getClass().getName(), timeTaken);
+    }
+
+    public static SortResult orchestratorNoComparativeSort(ToIntFunction<Network> keyExtractor) {
+        comprobateSortByIdentifier = false;
+        NoComparativeSort sort = getNoComparativeSort();
+        long timeTaken = calculateTime(
+                () -> sort.sort(Data.getNetworks(), keyExtractor)
+        );
+
+        return new SortResult(sort.getClass().getName(), timeTaken);
+    }
 }
