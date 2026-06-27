@@ -6,7 +6,6 @@ import com.korebit.util.SortUtils;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.printf("%b%n", SortUtils.comprobateSortByIdentifier);
         Data.printTheFirstHundredNetworks();
         System.out.println("------------------");
 
@@ -14,7 +13,6 @@ public class Main {
 
         System.out.printf("Algoritmo utilizado: %s%n", selectSort.algorithm());
 
-        System.out.printf("%b%n", SortUtils.comprobateSortByIdentifier);
         System.out.println("------------------");
         Data.printTheFirstHundredNetworks();
     }

@@ -3,10 +3,12 @@ package com.korebit.util;
 import com.korebit.dto.SortResult;
 import com.korebit.model.Data;
 import com.korebit.model.Network;
-import com.korebit.sort.Sort;
+import com.korebit.sort.ComparativeSort;
+import com.korebit.sort.NoComparativeSort;
 import com.korebit.sort.SortFactory;
 
 import java.util.Comparator;
+import java.util.function.ToIntFunction;
 
 public final class SortUtils {
 
@@ -23,34 +25,50 @@ public final class SortUtils {
         return endTime - startTime;
     }
 
-    public static Sort getRandomSort() {
-        return switch ((int) (Math.random() * 4)) {
-            case 0 -> SortFactory.getSort("bubble");
-            case 1 -> SortFactory.getSort("cocktail");
-            case 2 -> SortFactory.getSort("counting");
-            case 3 -> SortFactory.getSort("insertion");
+    private static NoComparativeSort getNoComparativeSort() {
+        return switch ((int) (Math.random() * 2)) {
+            case 0 -> (NoComparativeSort) SortFactory.getSort("counting");
+            case 1 -> (NoComparativeSort) SortFactory.getSort("radix");
+            default -> throw new IllegalStateException("Unexpected value");
+        };
+    }
+
+    private static ComparativeSort getComparativeSort() {
+        return switch ((int) (Math.random() * 7)) {
+            case 0 -> (ComparativeSort) SortFactory.getSort("bubble");
+            case 1 -> (ComparativeSort) SortFactory.getSort("cocktail");
+            case 2 -> (ComparativeSort) SortFactory.getSort("selection");
+            case 3 -> (ComparativeSort) SortFactory.getSort("insertion");
+            case 4 -> (ComparativeSort) SortFactory.getSort("shell");
+            case 5 -> (ComparativeSort) SortFactory.getSort("merge");
+            case 6 -> (ComparativeSort) SortFactory.getSort("quick");
             default -> throw new IllegalStateException("Unexpected value");
         };
     }
 
     public static SortResult orchestratorSortByIdentifier() {
-        Sort sort = getRandomSort();
-        Comparator<Network> comparator = Comparator.comparingInt(Network::getIdentifier);
-        comprobateSortByIdentifier = true;
+        boolean flag = (int) (Math.random() * 2) == 0;
+        return flag
+                ? orchestratorComparativeSort(Comparator.comparingInt(Network::getIdentifier))
+                : orchestratorNoComparativeSort(Network::getIdentifier);
+    }
 
+    public static SortResult orchestratorComparativeSort(Comparator<Network> comparator) {
+        comprobateSortByIdentifier = false;
+        ComparativeSort sort = getComparativeSort();
         long timeTaken = calculateTime(
                 () -> sort.sort(Data.getNetworks(), comparator)
         );
-
         return new SortResult(sort.getClass().getName(), timeTaken);
     }
 
-    public static SortResult orchestratorSort(Comparator<Network> comparator) {
+    public static SortResult orchestratorNoComparativeSort(ToIntFunction<Network> keyExtractor) {
         comprobateSortByIdentifier = false;
-        Sort sort = getRandomSort();
+        NoComparativeSort sort = getNoComparativeSort();
         long timeTaken = calculateTime(
-                () -> sort.sort(Data.getNetworks(), comparator)
+                () -> sort.sort(Data.getNetworks(), keyExtractor)
         );
+
         return new SortResult(sort.getClass().getName(), timeTaken);
     }
 }

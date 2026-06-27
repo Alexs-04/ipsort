@@ -8,6 +8,11 @@ public class SortFactory {
             case "insertion" -> new InsertionSort();
             case "cocktail" -> new CocktailSort();
             case "counting" -> new CountingSort();
+            case "radix" -> new RadixSort();
+            case "selection" -> new SelectionSort();
+            case "shell" -> new ShellSort();
+            case "merge" -> new MergeSort();
+            case "quick" -> new QuickSort();
             default -> throw new IllegalArgumentException("Invalid sort type: " + sortType);
         };
     }
