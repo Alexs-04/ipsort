@@ -1,6 +1,5 @@
 package com.korebit.sort;
 
-
 public class MergeSort implements ComparativeSort {
 
     @Override
