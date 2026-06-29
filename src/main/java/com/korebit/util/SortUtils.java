@@ -6,6 +6,7 @@ import com.korebit.model.Network;
 import com.korebit.sort.ComparativeSort;
 import com.korebit.sort.NoComparativeSort;
 import com.korebit.sort.SortFactory;
+import lombok.NonNull;
 
 import java.util.Comparator;
 import java.util.function.ToIntFunction;
@@ -25,7 +26,7 @@ public final class SortUtils {
         return endTime - startTime;
     }
 
-    private static NoComparativeSort getNoComparativeSort() {
+    private static @NonNull NoComparativeSort getNoComparativeSort() {
         return switch ((int) (Math.random() * 2)) {
             case 0 -> (NoComparativeSort) SortFactory.getSort("counting");
             case 1 -> (NoComparativeSort) SortFactory.getSort("radix");
@@ -59,7 +60,7 @@ public final class SortUtils {
         long timeTaken = calculateTime(
                 () -> sort.sort(Data.getNetworks(), comparator)
         );
-        return new SortResult(sort.getClass().getName(), timeTaken);
+        return new SortResult(sort.getClass().getName().split("\\.")[3], timeTaken);
     }
 
     public static SortResult orchestratorNoComparativeSort(ToIntFunction<Network> keyExtractor) {
@@ -69,6 +70,6 @@ public final class SortUtils {
                 () -> sort.sort(Data.getNetworks(), keyExtractor)
         );
 
-        return new SortResult(sort.getClass().getName(), timeTaken);
+        return new SortResult(sort.getClass().getName().split("\\.")[3], timeTaken);
     }
 }

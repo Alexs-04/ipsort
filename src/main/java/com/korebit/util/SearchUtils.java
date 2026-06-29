@@ -35,7 +35,7 @@ public final class SearchUtils {
                 return network;
             }
         }
-        throw new NetworkNotFunException("Network with NAT " + identifier + " not found");
+        throw new NetworkNotFunException("Network with Identifier " + identifier + " not found");
     }
 
     private static Network binarySearch(int identifier) {
@@ -54,7 +54,7 @@ public final class SearchUtils {
                 right = mid - 1;
             }
         }
-        throw new NetworkNotFunException("Network with NAT " + identifier + " not found");
+        throw new NetworkNotFunException("Network with Identifier " + identifier + " not found");
     }
 
     public static Network linealSearchByName(String name) {
