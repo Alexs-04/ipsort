@@ -17,4 +17,10 @@ public final class Const {
                 Objects.requireNonNull(
                         Const.class.getClassLoader().getResource("img/icon.png")).getPath()));
     }
+
+    public static ImageIcon getIcon(String path) {
+        return new ImageIcon(Objects.requireNonNull(
+                Objects.requireNonNull(
+                        Const.class.getClassLoader().getResource(path)).getPath()));
+    }
 }
