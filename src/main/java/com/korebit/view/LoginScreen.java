@@ -1,5 +1,6 @@
 package com.korebit.view;
 
+import com.korebit.service.Login;
 import com.korebit.util.Const;
 
 import javax.swing.*;
@@ -7,7 +8,6 @@ import java.awt.*;
 
 public class LoginScreen extends JFrame {
 
-    private JButton btnLogin;
     private JTextField txtUsername;
     private JPasswordField txtPassword;
 
@@ -97,7 +97,7 @@ public class LoginScreen extends JFrame {
 
         loginPanel.add(txtPassword, gbc);
 
-        btnLogin = new JButton("Iniciar sesión");
+        JButton btnLogin = new JButton("Iniciar sesión");
 
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -128,8 +128,10 @@ public class LoginScreen extends JFrame {
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
 
-        if (username.equals("admin") && password.equals("admin")) {
-            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso");
+        if (new Login().startSession(username, password)) {
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            new MainScreen().setVisible(true);
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
         }

@@ -35,14 +35,14 @@ public final class SortUtils {
     }
 
     private static ComparativeSort getComparativeSort() {
-        return switch ((int) (Math.random() * 7)) {
-            case 0 -> (ComparativeSort) SortFactory.getSort("bubble");
-            case 1 -> (ComparativeSort) SortFactory.getSort("cocktail");
-            case 2 -> (ComparativeSort) SortFactory.getSort("selection");
-            case 3 -> (ComparativeSort) SortFactory.getSort("insertion");
-            case 4 -> (ComparativeSort) SortFactory.getSort("shell");
-            case 5 -> (ComparativeSort) SortFactory.getSort("merge");
-            case 6 -> (ComparativeSort) SortFactory.getSort("quick");
+        return (ComparativeSort) switch ((int) (Math.random() * 7)) {
+            case 0 -> SortFactory.getSort("bubble");
+            case 1 -> SortFactory.getSort("cocktail");
+            case 2 -> SortFactory.getSort("selection");
+            case 3 -> SortFactory.getSort("insertion");
+            case 4 -> SortFactory.getSort("shell");
+            case 5 -> SortFactory.getSort("merge");
+            case 6 -> SortFactory.getSort("quick");
             default -> throw new IllegalStateException("Unexpected value");
         };
     }
