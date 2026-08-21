@@ -17,15 +17,15 @@ public class LoginScreen extends JFrame {
         setTitle("Inicio de sesión");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        setIconImage(Const.getIcon().getImage());
+        setIconImage(Const.getIcon(Const.ICON).getImage());
 
-        setSize(600, 400);
+        setSize(550, 450);
         setLocationRelativeTo(null);
     }
 
     private void createUIComponents() {
 
-        Image logoImage = Const.getIcon("img/logo.png")
+        Image logoImage = Const.getIcon(Const.NAME_APP)
                 .getImage();
 
         JPanel loginPanel = new JPanel();
@@ -45,8 +45,8 @@ public class LoginScreen extends JFrame {
         JLabel lblLogo = new JLabel();
 
         Image scaledLogo = logoImage.getScaledInstance(
-                120,
-                120,
+                450,
+                140,
                 Image.SCALE_SMOOTH
         );
 
