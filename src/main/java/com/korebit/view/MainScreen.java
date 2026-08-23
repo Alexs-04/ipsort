@@ -1,5 +1,6 @@
 package com.korebit.view;
 
+import com.korebit.model.Data;
 import com.korebit.util.Const;
 
 import javax.swing.*;
@@ -60,6 +61,11 @@ public class MainScreen extends JFrame {
                 "Redes Registradas",
                 Const.DATA_ICON
         );
+
+        btnNetworks.addActionListener(e -> {
+            DataScreen dataScreen = new DataScreen(Data.getNetworks());
+            dataScreen.setVisible(true);
+        });
 
         btnSorts = createMenuButton(
                 "Ordenamientos",
