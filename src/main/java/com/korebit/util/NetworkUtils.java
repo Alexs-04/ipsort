@@ -126,8 +126,7 @@ public final class NetworkUtils {
     }
 
     public static boolean validateOctets(int oct1, int oct2, int oct3, int oct4) {
-        return oct1 >= 0 && oct1 <= 255 && oct2 >= 0
-                && oct2 <= 255 && oct3 >= 0 && oct3 <= 255 && oct4 >= 0 && oct4 <= 255;
+        return validateOctet(oct1) && validateOctet(oct2) && validateOctet(oct3) && validateOctet(oct4);
 
     }
 
