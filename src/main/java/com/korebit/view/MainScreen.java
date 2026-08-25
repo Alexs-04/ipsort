@@ -9,15 +9,6 @@ import java.awt.*;
 
 public class MainScreen extends JFrame {
 
-    private JPanel panel;
-
-    private JButton btnNetworks;
-    private JButton btnSorts;
-    private JButton btnSearch;
-    private JButton btnAdd;
-    private JButton btnDelete;
-    private JButton btnSpecialMenu;
-
     public MainScreen() {
         createUIComponents();
 
@@ -32,7 +23,7 @@ public class MainScreen extends JFrame {
 
     private void createUIComponents() {
 
-        panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout());
 
         panel.setBorder(
                 new EmptyBorder(30, 50, 30, 50)
@@ -57,7 +48,7 @@ public class MainScreen extends JFrame {
                 new EmptyBorder(30, 40, 30, 40)
         );
 
-        btnNetworks = createMenuButton(
+        JButton btnNetworks = createMenuButton(
                 "Redes Registradas",
                 Const.DATA_ICON
         );
@@ -67,27 +58,32 @@ public class MainScreen extends JFrame {
             dataScreen.setVisible(true);
         });
 
-        btnSorts = createMenuButton(
+        JButton btnSorts = createMenuButton(
                 "Ordenamientos",
                 Const.SORT_ICON
         );
 
-        btnSearch = createMenuButton(
+        btnSorts.addActionListener(e -> {
+            SortScreen sortScreen = new SortScreen(this);
+            sortScreen.setVisible(true);
+        });
+
+        JButton btnSearch = createMenuButton(
                 "Búsquedas",
                 Const.SEARCH_ICON
         );
 
-        btnAdd = createMenuButton(
+        JButton btnAdd = createMenuButton(
                 "Agregar",
                 Const.ADD_ICON
         );
 
-        btnDelete = createMenuButton(
+        JButton btnDelete = createMenuButton(
                 "Eliminar",
                 Const.DELETE_ICON
         );
 
-        btnSpecialMenu = createMenuButton(
+        JButton btnSpecialMenu = createMenuButton(
                 "Menú especial",
                 Const.SPECIAL_MENU_ICON
         );

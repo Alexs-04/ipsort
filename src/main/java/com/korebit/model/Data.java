@@ -72,6 +72,11 @@ public final class Data {
         return false;
     }
 
+    public static boolean removeNetwork(int identifier) {
+        IDENTIFIERS.removeIf(id -> id == identifier);
+        return NETWORKS.removeIf(n -> n.getIdentifier() == identifier);
+    }
+
     public static int[] countStatus() {
         int[] array = {0, 0};
 
