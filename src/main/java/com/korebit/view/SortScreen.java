@@ -78,6 +78,7 @@ public class SortScreen extends JDialog {
             sortResult = SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getName));
             updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
         });
+
         JButton btnSortByID = createSortButton(
                 "Ordenar por ID"
         );
@@ -90,8 +91,11 @@ public class SortScreen extends JDialog {
         JButton btnSortByPrefix = createSortButton(
                 "Ordenar por prefijo"
         );
+
         btnSortByPrefix.addActionListener(e -> {
-            sortResult = SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getPrefix));
+            sortResult = Const.getRandomInt(0, 1) == 0
+                    ? SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getPrefix))
+                    : SortUtils.orchestratorNoComparativeSort(Network::getPrefix);
             updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
         });
 
@@ -99,9 +103,19 @@ public class SortScreen extends JDialog {
                 "Ordenar por clase"
         );
 
+        btnSortByClass.addActionListener(e -> {
+            sortResult = SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getNetworkClassType));
+            updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
+        });
+
         JButton btnSortByStatus = createSortButton(
                 "Ordenar por estado"
         );
+
+        btnSortByStatus.addActionListener(e -> {
+            sortResult = SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getStatus));
+            updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
+        });
 
         sortPanel.add(btnSortByName);
         sortPanel.add(btnSortByID);
@@ -113,7 +127,6 @@ public class SortScreen extends JDialog {
                 sortPanel,
                 BorderLayout.CENTER
         );
-
 
         setContentPane(contentPane);
     }
