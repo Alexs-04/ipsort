@@ -26,4 +26,8 @@ public final class Const {
                 Objects.requireNonNull(
                         Const.class.getClassLoader().getResource(path)).getPath()));
     }
+
+    public static int getRandomInt(int min, int max) {
+        return RANDOM.nextInt(max - min + 1) + min;
+    }
 }

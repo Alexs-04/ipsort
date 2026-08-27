@@ -52,6 +52,7 @@ public final class Data {
                             .name(name.trim())
                             .networkClassType(networkClassType)
                             .status(statusType)
+                            .prefix(prefix)
                             .build());
                 }
             }
