@@ -14,6 +14,8 @@ import java.util.function.ToIntFunction;
 public final class SortUtils {
 
     public static boolean comprobateSortByIdentifier = false;
+    public static boolean comprobateSortByName = false;
+    public static boolean comprobateSortByPrefix = false;
 
     private SortUtils() {
         throw new UnsupportedOperationException("Utility class");
@@ -55,7 +57,6 @@ public final class SortUtils {
     }
 
     public static SortResult orchestratorComparativeSort(Comparator<Network> comparator) {
-        comprobateSortByIdentifier = false;
         ComparativeSort sort = getComparativeSort();
         long timeTaken = calculateTime(
                 () -> sort.sort(Data.getNetworks(), comparator)
@@ -64,7 +65,6 @@ public final class SortUtils {
     }
 
     public static SortResult orchestratorNoComparativeSort(ToIntFunction<Network> keyExtractor) {
-        comprobateSortByIdentifier = false;
         NoComparativeSort sort = getNoComparativeSort();
         long timeTaken = calculateTime(
                 () -> sort.sort(Data.getNetworks(), keyExtractor)
