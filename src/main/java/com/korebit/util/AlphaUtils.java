@@ -7,13 +7,11 @@ import java.util.Comparator;
 import java.util.List;
 
 public class AlphaUtils {
+    private static final ArrayList<Alpha> ALPHAS = new ArrayList<>();
 
     static {
         uploadInitAlphas();
     }
-
-    //Alpha, in this context refers to the ordering method with the highest incidence.
-    private static final ArrayList<Alpha> ALPHAS = new ArrayList<>();
 
     private AlphaUtils() {
         throw new UnsupportedOperationException("Utility class");

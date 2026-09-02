@@ -2,6 +2,7 @@ package com.korebit.view;
 
 import com.korebit.dto.SortResult;
 import com.korebit.model.Network;
+import com.korebit.util.AlphaUtils;
 import com.korebit.util.Const;
 import com.korebit.util.SortUtils;
 
@@ -77,6 +78,11 @@ public class SortScreen extends JDialog {
         btnSortByName.addActionListener(e -> {
             sortResult = SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getName));
             updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
+            if (!SortUtils.comprobateSortByName) {
+                SortUtils.resetSortFlags();
+                SortUtils.comprobateSortByName = true;
+                AlphaUtils.updateAlpha(sortResult.algorithm(), sortResult.executeTime());
+            }
         });
 
         JButton btnSortByID = createSortButton(
@@ -86,6 +92,11 @@ public class SortScreen extends JDialog {
         btnSortByID.addActionListener(e -> {
             sortResult = SortUtils.orchestratorSortByIdentifier();
             updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
+            if (!SortUtils.comprobateSortByIdentifier) {
+                SortUtils.resetSortFlags();
+                SortUtils.comprobateSortByIdentifier = true;
+                AlphaUtils.updateAlpha(sortResult.algorithm(), sortResult.executeTime());
+            }
         });
 
         JButton btnSortByPrefix = createSortButton(
@@ -96,6 +107,12 @@ public class SortScreen extends JDialog {
             sortResult = Const.getRandomInt(0, 1) == 0
                     ? SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getPrefix))
                     : SortUtils.orchestratorNoComparativeSort(Network::getPrefix);
+
+            if (!SortUtils.comprobateSortByPrefix) {
+                SortUtils.resetSortFlags();
+                SortUtils.comprobateSortByPrefix = true;
+                AlphaUtils.updateAlpha(sortResult.algorithm(), sortResult.executeTime());
+            }
             updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
         });
 
@@ -105,6 +122,11 @@ public class SortScreen extends JDialog {
 
         btnSortByClass.addActionListener(e -> {
             sortResult = SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getNetworkClassType));
+            if (!SortUtils.comprobateSortByClass) {
+                SortUtils.resetSortFlags();
+                SortUtils.comprobateSortByClass = true;
+                AlphaUtils.updateAlpha(sortResult.algorithm(), sortResult.executeTime());
+            }
             updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
         });
 
@@ -114,6 +136,11 @@ public class SortScreen extends JDialog {
 
         btnSortByStatus.addActionListener(e -> {
             sortResult = SortUtils.orchestratorComparativeSort(Comparator.comparing(Network::getStatus));
+            if (!SortUtils.comprobateSortByStatus) {
+                SortUtils.resetSortFlags();
+                SortUtils.comprobateSortByStatus = true;
+                AlphaUtils.updateAlpha(sortResult.algorithm(), sortResult.executeTime());
+            }
             updateSortInfo(sortResult.algorithm(), sortResult.executeTime());
         });
 
