@@ -16,6 +16,8 @@ public final class SortUtils {
     public static boolean comprobateSortByIdentifier = false;
     public static boolean comprobateSortByName = false;
     public static boolean comprobateSortByPrefix = false;
+    public static boolean comprobateSortByClass = false;
+    public static boolean comprobateSortByStatus = false;
 
     private SortUtils() {
         throw new UnsupportedOperationException("Utility class");
@@ -71,5 +73,13 @@ public final class SortUtils {
         );
 
         return new SortResult(sort.getClass().getName().split("\\.")[3], timeTaken);
+    }
+
+    public static void resetSortFlags() {
+        comprobateSortByIdentifier = false;
+        comprobateSortByName = false;
+        comprobateSortByPrefix = false;
+        comprobateSortByClass = false;
+        comprobateSortByStatus = false;
     }
 }
