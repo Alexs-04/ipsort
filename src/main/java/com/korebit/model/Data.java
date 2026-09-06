@@ -16,6 +16,10 @@ public final class Data {
         uploadData();
     }
 
+    private Data() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     private static void uploadData() {
         File data = new File(Objects.requireNonNull(Data.class.getClassLoader().getResource("data/data.txt")).getPath());
 
