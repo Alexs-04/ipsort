@@ -73,6 +73,11 @@ public class MainScreen extends JFrame {
                 Const.SEARCH_ICON
         );
 
+        btnSearch.addActionListener(e -> {
+            SearchScreen searchScreen = new SearchScreen(this);
+            searchScreen.setVisible(true);
+        });
+
         JButton btnAdd = createMenuButton(
                 "Agregar",
                 Const.ADD_ICON

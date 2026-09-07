@@ -127,7 +127,24 @@ public final class NetworkUtils {
 
     public static boolean validateOctets(int oct1, int oct2, int oct3, int oct4) {
         return validateOctet(oct1) && validateOctet(oct2) && validateOctet(oct3) && validateOctet(oct4);
+    }
 
+    public static boolean validateOctets(String ip){
+        String[] octets = ip.split("\\.");
+        if (octets.length != 4) {
+            return false;
+        }
+        for (String octet : octets) {
+            try {
+                int oct = Integer.parseInt(octet);
+                if (!validateOctet(oct)) {
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean validateOctet(int oct) {
